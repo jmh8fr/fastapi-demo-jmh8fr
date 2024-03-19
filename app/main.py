@@ -3,6 +3,8 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
+import json
+import requests
 # import boto3
 
 app = FastAPI()
@@ -18,6 +20,15 @@ def read_root():
     return {"Hello": "World"}
 
 
+@app.get("/github/repos/{user}")
+def github_user_repos(user):
+    url = "https://api.github.com/users/" + user + "/repos"
+    response = requests.get(url)
+    body = json.loads(response.text)
+    return {"repos": body}
+
+
+
 # Endpoints and Methods
 # /blah - endpoint
 # GET/POST/DELETE/PATCH - methods
@@ -29,9 +40,16 @@ def add_me(number_1: int, number_2: int):
     sum = number_1 + number_2
     return {"sum": sum}
 
+@app.get("/divide/{number_1}/{number_2}")
+def divide_me(number_1: int, number_2: int):
+    div = number_2 / number_1
+    return {"quotient": div}
+
 # Let's develop a new one:
-
-
+@app.get("/multiply/{num_1}/{num_2}/{num_3}")
+def multiply_this_stuff(num_1,num_2,num_3):
+    product = int(num_1 * num_2 * num_3)
+    return {"product": product}
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
 @app.get("/items/{item_id}")
