@@ -55,6 +55,12 @@ def multiply_this_stuff(num_1,num_2,num_3):
 def subtract(number_1: int, number_2: int):
     difference = number_1 - number_2
     return {"difference": difference}
+
+@app.get("/square/{number_1}/{number_2}")
+def square_numbers(number_1: int, number_2: int):
+    square_1 = number_1 ** 2
+    square_2 = number_2 ** 2
+    return {"square_1": square_1, "square_2": square_2}
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
 @app.get("/items/{item_id}")
