@@ -50,6 +50,11 @@ def divide_me(number_1: int, number_2: int):
 def multiply_this_stuff(num_1,num_2,num_3):
     product = int(num_1 * num_2 * num_3)
     return {"product": product}
+
+@app.get("/subtract/{number_1}/{number_2}")
+def subtract(number_1: int, number_2: int):
+    difference = number_1 - number_2
+    return {"difference": difference}
 ## Parameters
 # Introduce parameter data types and defaults from the Optional library
 @app.get("/items/{item_id}")
